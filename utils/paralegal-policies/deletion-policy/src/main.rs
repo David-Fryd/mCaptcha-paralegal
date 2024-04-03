@@ -4,18 +4,24 @@ use paralegal_policy::{
 };
 use std::sync::Arc;
 
+#[allow(dead_code)]
 fn dummy_policy(_ctx: Arc<Context>) -> Result<()> {
     println!("Graph loaded.");
     Ok(())
 }
 
 fn main() -> Result<()> {
-    let dir = "../../../../mCaptcha-paralegal/";
-    paralegal_policy::SPDGGenCommand::global()
-        .external_annotations("external-annotations.toml")
-        .run(dir)?
-        .with_context(dummy_policy)?;
-    println!("Policy successful");
+    // let dir = "../../../../mCaptcha-paralegal/"; // but this works??
+    let dir = "../../../../mCaptcha-paralegal/db/db-core/"; // no such file or directory thrown by paralegal_policy??
+    if std::path::Path::new(dir).exists() {
+        paralegal_policy::SPDGGenCommand::global()
+            // .external_annotations("external-annotations.toml")
+            .run(dir)?
+            .with_context(deletion_policy)?;
+        println!("Policy successful");
+    } else {
+        println!("Directory not found: {}", dir);
+    }
     Ok(())
 }
 

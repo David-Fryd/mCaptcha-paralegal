@@ -96,10 +96,6 @@ pub trait MCDatabase: std::marker::Send + std::marker::Sync + CloneSPDatabase {
     /// register a new user
     async fn register(&self, p: &Register) -> DBResult<()>;
 
-    #[paralegal::analyze]
-    #[paralegal::marker(deletes)]
-    // THIS WON'T WORK: Register type won't actually flow into any delete_user call, since delete_user accepts a &str.
-    // Side question: Can we add the marker to the un-implmeneted method signature like this? Probably not..
     /// delete a user
     async fn delete_user(&self, username: &str) -> DBResult<()>;
 

@@ -11,13 +11,17 @@ fn dummy_policy(_ctx: Arc<Context>) -> Result<()> {
 }
 
 fn main() -> Result<()> {
-    // let dir = "../../../../mCaptcha-paralegal/"; // but this works??
-    let dir = "../../../../mCaptcha-paralegal/db/db-core/"; // no such file or directory thrown by paralegal_policy??
+    let dir = "../../../../mCaptcha-paralegal/";
     if std::path::Path::new(dir).exists() {
-        paralegal_policy::SPDGGenCommand::global()
-            // .external_annotations("external-annotations.toml")
-            .run(dir)?
-            .with_context(deletion_policy)?;
+        let mut cmd = paralegal_policy::SPDGGenCommand::global();
+        cmd.external_annotations("external-annotations.toml")
+            .get_command()
+            .args(["--target", "db-core"]); // TODO: This is how to run it on sub-module,
+                                            // but the actual deletion policy we will explore
+                                            // will be run on the main mCaptcha module using
+                                            // external annotations for db-functions.
+        cmd.run(dir)?.with_context(deletion_policy)?;
+        // .with_context(dummy_policy)?;
         println!("Policy successful");
     } else {
         println!("Directory not found: {}", dir);

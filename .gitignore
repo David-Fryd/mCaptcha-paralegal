@@ -18,3 +18,8 @@ src/cache_buster_data.json.license
 **/**/target
 src/libcachebust_data.json
 utils/cache-bust/src/libcachebust_data.json
+
+# Paralegal Related
+flow-graph.json
+analysis_result.frg
+analysis_result.info.json

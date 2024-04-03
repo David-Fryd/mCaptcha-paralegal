@@ -2003,6 +2003,7 @@ dependencies = [
  "mime_guess",
  "num_cpus",
  "openssl",
+ "paralegal",
  "pretty_env_logger 0.4.0",
  "rand",
  "reqwest",
@@ -2312,6 +2313,15 @@ checksum = "ccd746e37177e1711c20dd619a1620f34f5c8b569c53590a72dedd5344d8924a"
 dependencies = [
  "dlv-list",
  "hashbrown 0.12.3",
+]
+
+[[package]]
+name = "paralegal"
+version = "0.1.0"
+dependencies = [
+ "cfg-if",
+ "proc-macro2",
+ "quote",
 ]
 
 [[package]]

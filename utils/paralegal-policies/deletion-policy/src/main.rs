@@ -15,13 +15,10 @@ fn main() -> Result<()> {
     if std::path::Path::new(dir).exists() {
         let mut cmd = paralegal_policy::SPDGGenCommand::global();
         cmd.external_annotations("external-annotations.toml")
-            .get_command()
-            .args(["--target", "db-core"]); // TODO: This is how to run it on sub-module,
-                                            // but the actual deletion policy we will explore
-                                            // will be run on the main mCaptcha module using
-                                            // external annotations for db-functions.
+            .get_command();
+
         cmd.run(dir)?.with_context(deletion_policy)?;
-        // .with_context(dummy_policy)?;
+        // cmd.run(dir)?.with_context(dummy_policy)?;
         println!("Policy successful");
     } else {
         println!("Directory not found: {}", dir);

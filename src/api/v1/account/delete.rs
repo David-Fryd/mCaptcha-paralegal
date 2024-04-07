@@ -10,6 +10,7 @@ use super::auth::runners::Password;
 use crate::errors::*;
 use crate::AppData;
 
+#[paralegal::analyze]
 #[my_codegen::post(
     path = "crate::V1_API_ROUTES.account.delete",
     wrap = "crate::api::v1::get_middleware()"
@@ -40,7 +41,7 @@ pub async fn delete_account(
 pub mod runners {
 
     use super::*;
-
+    // #[paralegal::marker(deletes)] the general db.delete_user is added in external annotations
     pub async fn delete_user(name: &str, data: &AppData) -> ServiceResult<()> {
         data.db.delete_user(name).await?;
         Ok(())

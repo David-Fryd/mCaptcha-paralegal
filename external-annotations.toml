@@ -7,7 +7,7 @@
 marker = "deletes"
 on_argument = [1]
 
-[["actix_identity::identity::Identity"]]
+[["actix_identity::Identity"]]
 marker = "user_data"
 
 

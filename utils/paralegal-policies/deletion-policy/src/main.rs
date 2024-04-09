@@ -13,10 +13,10 @@ fn dummy_policy(_ctx: Arc<Context>) -> Result<()> {
 fn main() -> Result<()> {
     let dir = "../../../../mCaptcha-paralegal/";
     if std::path::Path::new(dir).exists() {
-        let mut cmd = paralegal_policy::SPDGGenCommand::global();
+        let mut cmd = paralegal_policy::SPDGGenCommand::global(); //.abort_after_analysis();
         cmd.external_annotations("external-annotations.toml")
-            .get_command();
-
+            .get_command()
+            .args(["--target", "mcaptcha"]);
         cmd.run(dir)?.with_context(deletion_policy)?;
         // cmd.run(dir)?.with_context(dummy_policy)?;
         println!("Policy successful");

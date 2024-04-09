@@ -63,6 +63,7 @@ pub struct AccountCheckResp {
     pub exists: bool,
 }
 
+// #[paralegal::analyze]
 pub fn services(cfg: &mut actix_web::web::ServiceConfig) {
     delete::services(cfg);
     email::services(cfg);

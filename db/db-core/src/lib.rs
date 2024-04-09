@@ -45,7 +45,7 @@ pub mod dev {
     pub use async_trait::async_trait;
 }
 
-#[paralegal::marker(user_data)]
+// #[paralegal::marker(user_data)]
 #[derive(Clone, Debug, Deserialize, Serialize, PartialEq)]
 /// Data required to register a new user
 pub struct Register<'a> {

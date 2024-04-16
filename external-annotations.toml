@@ -11,3 +11,4 @@ on_argument = [1]
 
 [["db_core::MCDatabase::analytics_captcha_is_published"]]
 marker = "verify_opt_in"
+on_return = true

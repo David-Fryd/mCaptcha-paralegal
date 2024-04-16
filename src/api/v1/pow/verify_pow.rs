@@ -22,7 +22,7 @@ pub struct ValidationToken {
 }
 
 // TODO: We would want to mark only the `key` field as sitekey to prevent overtaint..
-#[paralegal::marker(site_key)]
+// #[paralegal::marker(site_key)]
 #[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct ApiWork {
     pub string: String,
@@ -42,6 +42,11 @@ impl From<ApiWork> for Work {
             key: value.key,
         }
     }
+}
+
+#[paralegal::marker(site_key, arguments = [0])]
+fn mark_site_key(key: String) -> String {
+    key
 }
 
 // API keys are mcaptcha actor names
@@ -64,7 +69,7 @@ pub async fn verify_pow(
     #[cfg(test)]
     let ip = "127.0.1.1".into();
 
-    let key = payload.key.clone();
+    let key = mark_site_key(payload.key.clone());
     let payload = payload.into_inner();
     let worker_type = payload.worker_type.clone();
     let time = payload.time;
@@ -77,6 +82,11 @@ pub async fn verify_pow(
             time,
             worker_type,
         };
+        #[cfg(not(feature = "buggy"))]
+        if data.db.analytics_captcha_is_published(&key).await? {
+            data.db.analysis_save(&key, &analytics).await?;
+        }
+        #[cfg(feature = "buggy")]
         data.db.analysis_save(&key, &analytics).await?;
     }
     data.db

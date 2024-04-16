@@ -1,8 +1,3 @@
-# see src/api/v1/account/delete.rs
-# async fn delete_user(&self, username: &str) -> DBResult<()>;
-# [["mcaptcha::data::Data::db::delete_user"]]
-# marker = "deletes"
-# on_argument = [1]
 [["db_core::MCDatabase::delete_user"]]
 marker = "deletes"
 on_argument = [1]
@@ -10,8 +5,9 @@ on_argument = [1]
 [["actix_identity::Identity"]]
 marker = "user_data"
 
+[["db_core::MCDatabase::analysis_save"]]
+marker = "save_stats_to_db"
+on_argument = [1]
 
-# example:
-# [["std::fs::remove_file"]]
-# marker = "deletes"
-# on_argument = [0]
+[["db_core::MCDatabase::analytics_captcha_is_published"]]
+marker = "verify_opt_in"

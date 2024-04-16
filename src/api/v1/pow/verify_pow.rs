@@ -21,6 +21,8 @@ pub struct ValidationToken {
     pub token: String,
 }
 
+// TODO: We would want to mark only the `key` field as sitekey to prevent overtaint..
+#[paralegal::marker(site_key)]
 #[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct ApiWork {
     pub string: String,
@@ -46,6 +48,7 @@ impl From<ApiWork> for Work {
 
 /// route handler that verifies PoW and issues a solution token
 /// if verification is successful
+#[paralegal::analyze]
 #[my_codegen::post(path = "V1_API_ROUTES.pow.verify_pow()")]
 pub async fn verify_pow(
     req: HttpRequest,

@@ -64,8 +64,8 @@ pub mod assets {
     }
 }
 
-// #[derive(RustEmbed)]
-// #[folder = "assets/"]
+#[derive(RustEmbed)]
+#[folder = "assets/"]
 struct Asset;
 
 fn handle_assets(path: &str) -> HttpResponse {
